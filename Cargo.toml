@@ -1,0 +1,15 @@
+[package]
+name = "site_loader"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "site_loader"
+path = "src/main.rs"
+
+[dependencies]
+miette = "5.10.0"
+nom = "7.1.3"
+tokio = "1.29.1"
+watchexec = "2.3.0"
+watchexec-signals = "1.0.0"
