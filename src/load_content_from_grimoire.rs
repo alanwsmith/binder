@@ -38,7 +38,7 @@ pub fn load_content_from_grimoire() {
 
     paths.iter().for_each(|p| {
         let data = read_to_string(p).unwrap();
-        dbg!(&p);
+        
         match (
             filter_status(data.as_str()).unwrap().1,
             filter_site(data.as_str(), config.site_id.as_str())
@@ -85,7 +85,8 @@ pub fn load_content_from_grimoire() {
                     None => {}
                 }
                 // println!("Copying to: {}", &output_file_path.display());
-                // let _ = copy(p, output_file_path);
+                dbg!(&output_file_path);
+                let _ = copy(p, output_file_path);
             }
             _ => { // dbg!("skipping");
             }

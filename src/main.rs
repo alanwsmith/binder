@@ -36,6 +36,7 @@ use watchexec_signals::Signal;
 #[tokio::main]
 async fn main() -> Result<()> {
     try_to_set_tmux_title();
+    load_content_from_grimoire();
     let mut init = InitConfig::default();
     init.on_error(PrintDebug(std::io::stderr()));
     let mut runtime = RuntimeConfig::default();
