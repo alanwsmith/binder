@@ -89,6 +89,7 @@ pub fn valid_nonce(p: PathBuf) -> bool {
 
         //
         "post- ",
+        "review- ",
         "site- ",
         "stream- ",
         "tools- ",

@@ -37,8 +37,8 @@ pub fn load_content_from_grimoire() {
     );
 
     paths.iter().for_each(|p| {
+        dbg!(&p);
         let data = read_to_string(p).unwrap();
-        
         match (
             filter_status(data.as_str()).unwrap().1,
             filter_site(data.as_str(), config.site_id.as_str())
@@ -52,7 +52,11 @@ pub fn load_content_from_grimoire() {
                 let mut output_file_path = output_dir_path.clone();
                 match override_path(data.as_str()).unwrap().1 {
                     Some(path) => {
-                        output_file_path.push(path);
+                        if let Some(adjust_path) = path.strip_prefix("/") {
+                            output_file_path.push(adjust_path);
+                        } else {
+                            output_file_path.push(path);
+                        }
                     }
                     None => {
                         match &config.output_sub_dir {
