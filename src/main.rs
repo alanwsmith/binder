@@ -1,6 +1,7 @@
 use core::fmt::Error;
 use miette::{IntoDiagnostic, Result};
 use site_loader::load_content_from_grimoire::load_content_from_grimoire;
+use site_loader::update_meilisearch::update_search_document;
 use std::process::Command;
 use std::time::Duration;
 use watchexec::{
@@ -9,6 +10,7 @@ use watchexec::{
     handler::PrintDebug,
     Watchexec,
 };
+use watchexec_events::Tag;
 use watchexec_signals::Signal;
 
 // This is currently hard coded to look for:
@@ -57,6 +59,22 @@ async fn main() -> Result<()> {
                 .paths()
                 .any(|(p, _)| p.starts_with("/Users/alan/Grimoire"))
             {
+                let path_thing = &event.tags.iter().find_map(|t| match t {
+                    Tag::Path { path, .. } => Some(path),
+                    _ => None,
+                });
+
+                match path_thing.unwrap().extension() {
+                    Some(e) => match e.to_str().unwrap() {
+                        "org" => {
+                            // dbg!(path_thing);
+                            update_search_document(path_thing.unwrap().to_str().unwrap())
+                        }
+                        _ => {}
+                    },
+                    None => {}
+                }
+
                 load_content = true;
             }
         }
