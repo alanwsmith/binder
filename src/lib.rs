@@ -6,5 +6,6 @@ pub mod filter_status;
 pub mod load_content_from_grimoire;
 pub mod output_dir_name;
 pub mod override_path;
+pub mod password;
+pub mod update_meilisearch;
 pub mod valid_nonce;
-
